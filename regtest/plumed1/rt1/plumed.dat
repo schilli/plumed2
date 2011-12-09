@@ -1,0 +1,24 @@
+rmsd0:  RMSD TYPE=OPTIMAL REFERENCE=test0.pdb
+rmsd1:  RMSD TYPE=OPTIMAL REFERENCE=test1.pdb
+rmsd2:  RMSD TYPE=OPTIMAL REFERENCE=test2.pdb
+rmsd3:  RMSD TYPE=OPTIMAL REFERENCE=test3.pdb
+
+# notice that due to a change in the definition of the optimal rotation
+# in plumed 2, rmsdx2 and rmsdx3 could be not consistent with rmsd2 and rmsd3
+rmsdx0:  COLVARPLUMED1 WHAT=TARGETED+FRAMESET+../test0.pdb+TYPE+MSD+SQRT NOPBC PERIODIC=NO
+rmsdx1:  COLVARPLUMED1 WHAT=TARGETED+FRAMESET+../test1.pdb+TYPE+MSD+SQRT NOPBC PERIODIC=NO
+rmsdx2:  COLVARPLUMED1 WHAT=TARGETED+FRAMESET+../test2.pdb+TYPE+MSD+SQRT NOPBC PERIODIC=NO
+rmsdx3:  COLVARPLUMED1 WHAT=TARGETED+FRAMESET+../test3.pdb+TYPE+MSD+SQRT NOPBC PERIODIC=NO
+
+#use either one or the other:
+RESTRAINT ARG=rmsdx0 AT=0.9 KAPPA=3.0
+#RESTRAINT ARG=rmsd0 AT=0.9 KAPPA=3.0
+
+PRINT ...
+  STRIDE=1
+  ARG=*
+  FILE=COLVAR FMT=%6.3f
+... PRINT
+
+ENDPLUMED
+
