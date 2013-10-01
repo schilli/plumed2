@@ -2,10 +2,10 @@ This repository contains my own public branches.
 
 To get the official plumed versions, please refer to the repository at http://github.com/plumed/plumed2
 
-Below you can see the content of the local branches. These branches will be merged to official plumed repository
+Below you can see the content of the local branches. These branches might be merged to official plumed repository
 as soon as they are ready for production.
 
-* _master_: This README file.
+* _gio-master_: This README file.
 
 * _v2.0-hrex_: An implementation of Hamiltonian replica exchange for GROMACS.
 There is an alternate GROMACS patch and a script to edit topologies. Both are preliminary and might not work with
