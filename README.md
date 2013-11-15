@@ -17,5 +17,3 @@ are supported (e.g. replica exchange is not supported), and that efficiency is p
 Mostly to be used to test when porting variables.
 
 * _v2.0-gpu-balance_: Modified gromacs patch which allows for a better load balance with GPUs
-
-* _walkers-mpi_: An implementation of multiple walkers based on MPI. Only works with GROMACS.
