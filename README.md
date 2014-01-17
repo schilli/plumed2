@@ -16,4 +16,6 @@ can be used to emulate collective variables and biases in PLUMED 2. Notice that 
 are supported (e.g. replica exchange is not supported), and that efficiency is poor.
 Mostly to be used to test when porting variables.
 
+These branches are not maintained since they were already merged to official plumed repository:
+
 * _v2.0-gpu-balance_: Modified gromacs patch which allows for a better load balance with GPUs
