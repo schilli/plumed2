@@ -11,6 +11,8 @@ as soon as they are ready for production.
 There is an alternate GROMACS patch and a script to edit topologies. Both are preliminary and might not work with
 all GROMACS settings. If you with to use it, I suggest you to get in touch with me (bussi@sissa.it)
 
+* _v2.1-hrex_: Same as _v2.0-hrex_, but based on PLUMED 2.1. See comments above.
+
 * _v2.0-plumed1_: An extra module (src/plumed1) which, in combination with the development version of PLUMED 1.3,
 can be used to emulate collective variables and biases in PLUMED 2. Notice that not all the features
 are supported (e.g. replica exchange is not supported), and that efficiency is poor.
