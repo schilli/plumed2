@@ -1,19 +1,19 @@
 language: cpp
 env:
-  - CC=mpicc CXX=mpic++
-  - CC=clang CXX=clang++
-  - CC=gcc CXX=g++
+  - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=yes
+  - PLUMED_CC=clang PLUMED_CXX=clang++ MAKEDOC=no
+  - PLUMED_CC=gcc   PLUMED_CXX=g++     MAKEDOC=no
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-get install -y wget
   - sudo apt-get install -y libopenmpi-dev openmpi-bin
   - sudo apt-get install -y libmatheval-dev
-  - sudo apt-get install -y doxygen
-  - sudo apt-get install -y graphviz
-  - sudo apt-get install -y texlive-fonts-extra
-  - sudo apt-get install -y texlive-full
+  - ./.travis.sh
 install: 
   - touch src/crystallization.on src/manyrestraints.on
-  - ./configure CXX=$(which $CXX) CC=$(which $CC)
+# this "which" trick is required since sudo make does not have the path
+# to the compiler
+  - ./configure CXX=$(which $PLUMED_CXX) CC=$(which $PLUMED_CC)
   - make
   - make doc > makedoc.out
   - sudo make install
