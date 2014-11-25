@@ -8,6 +8,6 @@ before_install:
 install: 
   - ./configure CXX=$(which $CXX) CC=$(which $CC)
   - make
-  - sudo -make install
+  - sudo make install
 script:
   - make -C regtest 
