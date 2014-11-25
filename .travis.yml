@@ -10,9 +10,10 @@ before_install:
   - sudo apt-get install -y texlive-fonts-extra
   - sudo apt-get install -y texlive-full
 install: 
+  - touch src/crystallization.on src/manyrestraints.on
   - ./configure
   - make
-  - make doc
+  - make doc > makedoc.out
   - sudo make install
 script:
   - make -C regtest 
