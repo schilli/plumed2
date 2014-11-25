@@ -2,12 +2,12 @@
 
 # Making sure that plumed executable is available
 echo -n "Searching for plumed ..."
-if plumed 2>/dev/null 1>/dev/null ; then
+if plumed --no-mpi 2>/dev/null 1>/dev/null ; then
   echo " found"
 else
   echo " not found"
   echo -n "Sourcing sourceme.sh and searching again ..."
-  if source ../sourceme.sh && plumed 2>/dev/null 1>/dev/null ; then
+  if source ../sourceme.sh && plumed --no-mpi 2>/dev/null 1>/dev/null ; then
     echo " found"
   else
     echo "ERROR: you should compile plumed first!"
@@ -21,13 +21,17 @@ rm -f errors
 rm -rf automatic
 mkdir automatic
 
-long_version="$(plumed info --long-version)"
-git_version="$(plumed info --git-version)"
+long_version="$(plumed --no-mpi info --long-version)"
+git_version="$(plumed --no-mpi info --git-version)"
 
 cat > automatic/version.tmp << EOF
 This manual has been compiled from PLUMED version <b> $long_version </b>
 (git version: <b> $git_version </b>)
 EOF
+
+for file in ../CHANGES/* ; do
+echo "- Changes for \\subpage $(cat $file | grep "@page" | awk '{print $2}')"
+done > automatic/changes.tmp
 
 # Check for files that register actions with no documentation
 for file in ../src/*/*.cpp
@@ -50,7 +54,7 @@ do
    echo "- \subpage $mytag " >> automatic/codes.list
    echo "/**" >> automatic/$myengine.txt
    echo "\page $mytag $myengine" >> automatic/$myengine.txt
-   plumed patch -e $myengine -i -q >> automatic/$myengine.txt
+   plumed --no-mpi patch -e $myengine -i -q >> automatic/$myengine.txt
    echo "*/" >> automatic/$myengine.txt 
 done
 
@@ -188,7 +192,7 @@ do
   if grep -q '//+PLUMEDOC INTERNAL' $file 1>/dev/null 2>/dev/null ; then
        cp $file automatic/$flag.txt
   else
-     if ! plumed manual --action=$flag > automatic/$flag.man 2> /dev/null ; then 
+     if ! plumed --no-mpi manual --action=$flag > automatic/$flag.man 2> /dev/null ; then 
         echo Full manual for action $flag will not be generated as you are building the manual from a code where this action was not compiled >> errors
      elif ! grep -q "\par Examples" $file 1>/dev/null 2>/dev/null
      then
@@ -216,8 +220,11 @@ do
 done
 
 
-for file in Bias Syntax Colvar Functions Group Installation Intro Analysis Glossary Tutorials Modules Regex  Misc Tools
+rm -f *PP.txt
+for f in *.txt
 do
+
+file=${f%.txt}
 
 # first replace with the content of the files
 # then grep out the special strings
@@ -241,7 +248,8 @@ cat $file.txt |
     /^ *@TOOLS@ *$/r      automatic/TOOLS.list
     /^ *@MODULES@ *$/r    automatic/modules.list
     /^ *@CODES@ *$/r      automatic/codes.list
-    /^ *@CODESL@ *$/r   automatic/codesl.list
-    /^ *@VERSION@ *$/r   automatic/version.tmp
+    /^ *@CODESL@ *$/r     automatic/codesl.list
+    /^ *@VERSION@ *$/r    automatic/version.tmp
+    /^ *@CHANGES@ *$/r    automatic/changes.tmp
 " | grep -Ev '^ *@[A-Z]*@ *$' > ${file}PP.txt
 done
