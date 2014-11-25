@@ -5,7 +5,11 @@ compiler:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libmatheval-dev
-script: 
+  - sudo apt-get install -y doxygen
+install: 
   - ./configure
   - make
-  - PATH=$PATH:$PWD/src/lib make -C regtest 
+  - make doc
+script:
+  - source sourceme.sh
+  - make -C regtest 
