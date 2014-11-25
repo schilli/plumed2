@@ -5,15 +5,9 @@ compiler:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libmatheval-dev
-  - sudo apt-get install -y doxygen
-  - sudo apt-get install -y graphviz
-  - sudo apt-get install -y texlive-fonts-extra
-  - sudo apt-get install -y texlive-full
 install: 
-  - touch src/crystallization.on src/manyrestraints.on
-  - ./configure
+  - ./configure CXX=$(which $CXX) CC=$(which $CC)
   - make
-  - make doc > makedoc.out
-  - sudo -E make install
+  - sudo -make install
 script:
   - make -C regtest 
