@@ -15,7 +15,7 @@ install:
 # to the compiler
   - ./configure CXX=$(which $PLUMED_CXX) CC=$(which $PLUMED_CC)
   - make
-  - make doc > makedoc.out
+  - ./.travis.makedoc
   - sudo make install
 script:
   - make -C regtest 

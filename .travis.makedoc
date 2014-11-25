@@ -1,0 +1,6 @@
+#! /bin/bash
+set -e
+
+if [ "$MAKEDOC" = yes ] ; then
+  make doc > makedoc.out
+fi

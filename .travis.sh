@@ -6,7 +6,7 @@ set -e
 wget ftp://ftp.gromacs.org/pub/contrib/xdrfile-1.1.4.tar.gz
 tar xzf xdrfile-1.1.4.tar.gz
 cd xdrfile-1.1.4
-./configure CC=$PLUMED_CC CXX=$PLUMED_CXX
+./configure CC=$PLUMED_CC CXX=$PLUMED_CXX --enable-shared
 make
 sudo make install
 cd ../
