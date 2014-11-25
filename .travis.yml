@@ -1,6 +1,6 @@
 language: cpp
 env:
-  - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=yes
+  - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=no
   - PLUMED_CC=clang PLUMED_CXX=clang++ MAKEDOC=no
   - PLUMED_CC=gcc   PLUMED_CXX=g++     MAKEDOC=no
 before_install:
@@ -13,7 +13,7 @@ install:
   - touch src/crystallization.on src/manyrestraints.on
 # this "which" trick is required since sudo make does not have the path
 # to the compiler
-  - ./configure CXX=$(which $PLUMED_CXX) CC=$(which $PLUMED_CC) CXXFLAGS="-O3" LDFLAGS="-Wl,-rpath,/usr/lib:/usr/local/lib"
+  - ./configure CXX=$(which $PLUMED_CXX) CC=$(which $PLUMED_CC) LDFLAGS="-Wl,-rpath,/usr/lib:/usr/local/lib:$LD_LIBRARY_PATH"
   - make
   - test $MAKEDOC == yes && make doc > makedoc.out || true
   - sudo make install
