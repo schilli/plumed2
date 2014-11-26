@@ -2,7 +2,7 @@ language: cpp
 env:
 # list of configurations to be attempted:
 # full configuration (including MPI), used to build manual
-  - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=yes
+#  - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=yes
 # mpi
   - PLUMED_CC=mpicc PLUMED_CXX=mpic++  MAKEDOC=no
 # clang
@@ -13,7 +13,7 @@ before_install:
 # install some package - these are fast, we install them anyway
   - sudo apt-get update -qq
   - sudo apt-get install -y wget
-  - sudo apt-get install -y libopenmpi-dev openmpi-bin
+  - sudo apt-get install -y mpich2 libmpich2-dev
   - sudo apt-get install -y libmatheval-dev
   - ./.travis.install.xdrfile
 # installation of these packages takes a lot of time
