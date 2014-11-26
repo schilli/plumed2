@@ -132,12 +132,13 @@ for file in *.reference ; do
   new="${file%.reference}"
   if test -f "$new" ; then
     ../../../scripts/fixzeroes.sh "$file"
-    ../../../scripts/fixzeroes.sh "$new"
-    out="$(diff "$file" "$new")"
+    cp "$new" "$new.zfix"
+    ../../../scripts/fixzeroes.sh "$new.zfix"
+    out="$(diff "$file" "$new.zfix")"
     test -n "$out" && {
       echo FAILURE
       echo "Diff for ${file%.reference}:"
-      diff "${file}" "${file%.reference}"
+      diff "${file}" "$new.zfix"
     }
   else
     echo FAILURE
