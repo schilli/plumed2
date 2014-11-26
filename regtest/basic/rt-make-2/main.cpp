@@ -63,7 +63,7 @@ void run(Communicator& comm){
 
   reset(comm,a);
   collect.assign(a.size()*comm.Get_size(),0.0);
-  comm.Allgather(&a[0],a.size(),&collect[0],a.size());
+  MPI_Allgather(&a[0],a.size(),MPI_INT,&collect[0],a.size(),MPI_INT,comm.Get_comm());
   dump(comm,ofs,collect);
 
   reset(comm,a);
