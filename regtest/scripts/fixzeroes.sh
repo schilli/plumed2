@@ -6,7 +6,7 @@ file=$1
 header="$(head -c 10 $file)"
 
 if [ "$header" = "#! FIELDS " ] ; then
-  sed "s/ -0.0000/  0.0000/g" $file > $file.$$.tmp
+  sed "s/ -0.0000 /  0.0000 /g" $file > $file.$$.tmp
   mv $file.$$.tmp $file
 fi
 
