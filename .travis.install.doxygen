@@ -18,7 +18,7 @@ fi
 git checkout $version
 
 ./configure --prefix=/usr/local
-make -j 2
+make
 sudo make install
 cd ../
 
