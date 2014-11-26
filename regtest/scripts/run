@@ -131,6 +131,8 @@ then
 for file in *.reference ; do
   new="${file%.reference}"
   if test -f "$new" ; then
+    ../../../scripts/fixzeroes.sh "$file"
+    ../../../scripts/fixzeroes.sh "$new"
     out="$(diff "$file" "$new")"
     test -n "$out" && {
       echo FAILURE
