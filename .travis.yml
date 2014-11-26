@@ -37,4 +37,4 @@ script:
   - make -C regtest
   - test $MAKEDOC == yes && make -C regtest copytodoc || true
   - test $MAKEDOC == yes && make doc > makedoc.out || true
-  - make -C checkfail
+  - make -C regtest checkfail
