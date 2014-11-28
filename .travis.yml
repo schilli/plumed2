@@ -32,7 +32,7 @@ install:
 # - test "$MAKEDOC" == yes && sudo apt-get install -y texlive-extra-utils || true
 # - test "$MAKEDOC" == yes && sudo apt-get install -y texlive-font-utils  || true
 # this takes a lot of time but apparently some of these packages are required for doxygen
-  - test "$MAKEDOC" == yes && sudo apt-get install -y texlive-full        || true
+#  - test "$MAKEDOC" == yes && sudo apt-get install -y texlive-full        || true
 # doxygen from its repository (apt-get gets an old version)
 # this makes a full compilation
 #  - test "$MAKEDOC" == yes && ./.travis.install.doxygen                   || true
@@ -51,6 +51,6 @@ script:
   - sudo make install
   - test "$VALGRIND" == yes && OPT=valgrind || OPT=""
   - make -C regtest $OPT
-  - test $MAKEDOC == yes && make -C regtest copytodoc || true
-  - test $MAKEDOC == yes && make doc || true
+  - test "$MAKEDOC" == yes && make -C regtest copytodoc || true
+  - test "$MAKEDOC" == yes && make doc || true
   - make -C regtest checkfail
